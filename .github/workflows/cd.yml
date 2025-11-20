@@ -2,26 +2,23 @@ name: Deploy no GitHub Pages
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repositório
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Configurar Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-
-      - name: Copiar arquivos
+      - name: Preparar pasta para deploy
         run: |
           mkdir public
           cp -r site/* public/
 
-      - name: Deploy no GitHub Pages
+      - name: Deploy para o GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
